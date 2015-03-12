@@ -1,0 +1,38 @@
+@using System.Web.Mvc.Html
+@using Umbraco.Comment.Controllers
+@using Umbraco.Web
+@model Umbraco.Comment.Models.CommentFormModel
+
+@{
+    Html.EnableClientValidation(true);
+    Html.EnableUnobtrusiveJavaScript(true);
+}
+
+@if (Convert.ToBoolean(TempData["IsSuccessful"]))
+{
+    <h1>YAY!</h1>
+    <p>Thanks for the comment, we will be in touch soon.</p>
+}
+
+@{
+    using (Html.BeginUmbracoForm<CommentController>("HandleCommentForm"))
+    {
+        @Html.ValidationSummary(true)
+        @Html.AntiForgeryToken()
+    
+        <h3>Ay Ay, Leave a comment</h3>
+        @Html.TextBoxFor(model => model.Name, new {placeholder = "Your Name", @class="form-control"})
+        @Html.ValidationMessageFor(model => model.Name)<br/>
+
+        @Html.TextBoxFor(model => model.Email, new {placeholder = "Email Address", @class="form-control"})
+        @Html.ValidationMessageFor(model => model.Email)<br/>
+
+        @Html.TextBoxFor(model => model.Website, new {placeholder = "Website", @class="form-control"})
+        @Html.ValidationMessageFor(model => model.Website)<br/>
+
+        @Html.TextAreaFor(model => model.Message, new {placeholder = "Your Message", @class="form-control"})
+        @Html.ValidationMessageFor(model => model.Message)<br/>
+
+        <input type="submit" value="Send" class="btn btn-primary"/>
+    }
+}
