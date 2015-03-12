@@ -1,0 +1,23 @@
+﻿<div class="umb-pane" ng-controller="uCommentator.SpamComment.controller">
+    <p>
+        Are you sure you want to move this comment to spam?<br />
+        {{comment.thread.title}}<br />
+        <strong>Name</strong>:<br />
+        <small>{{comment.author.name}} - {{comment.author.email}}</small><br />
+        <strong>Comment</strong>:<br />
+        <small>{{comment.raw_message}}</small>
+    </p>
+
+    <div>
+        <div class="umb-pane btn-toolbar umb-btn-toolbar">
+            <div class="control-group umb-control-group">
+                <a href="" class="btn btn-link" ng-click="cancelSpam()">
+                    <localize key="general_cancel">Cancel</localize>
+                </a>
+                <a href="" class="btn btn-primary" ng-click="spam(comment.id)">
+                    <localize key="general_ok">OK</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

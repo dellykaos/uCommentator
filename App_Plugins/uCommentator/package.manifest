@@ -1,0 +1,10 @@
+{      
+    javascript: [
+
+		'~/App_Plugins/uCommentator/uCommentator.controller.js',
+		'~/App_Plugins/uCommentator/uCommentator.resources.js'
+    ],
+	css: [
+		'~/App_Plugins/uCommentator/assets/style.css'
+	]
+}

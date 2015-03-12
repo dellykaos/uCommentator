@@ -1,0 +1,53 @@
+﻿<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<umb-panel>
+    <umb-header tabs="content.tabs">
+        <div class="umb-headline-editor-wrapper span12 ng-scope">
+            <h1 class="ng-binding">Whitelist User</h1>
+        </div>
+    </umb-header>
+    <umb-tab-view>
+        <div class="umb-pane">  
+            <div ng-controller="uCommentator.WhitelistUser.controller" class="comment-container">
+                <div class="comment-top-menu span12">
+                    <form ng-submit="searchPost(search)">
+                        <div class="pull-left">
+                            <input type="checkbox" ng-model="checkAll" ng-init="checkAll = false" ng-click="check(checkAll)"/>
+                            <a class="btn" ng-click="add()">Add</a> 
+                            <a class="btn" ng-click="removeChecked(whitelist)">Remove</a> 
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="pull-left" style="position:relative;">
+                            <input type="text" class="form-control" ng-model="search" ng-init="search = ''" placeholder="Search..."/>
+                            <span class="search-clear close clickable" ng-init="showX = search.length > 0 ? 'block' : 'none'"
+                                ng-style="{'display':search.length > 0 ? 'block' : 'none'}"
+                                ng-click="clearSearch(search)">×</span>
+                            <input type="submit" id="submit" value="Submit" style="visibility:hidden;position:absolute;left:-9999px;"/>
+                        </div>
+                    </form>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                        <th></th>
+                        <th></th>
+                        <th>Listed Item</th>
+                        <th>Type</th>
+                        <th></th>
+                    </thead>
+                    <tr ng-repeat="item in whitelist">
+                        <td><input type="checkbox" ng-model="item.isChecked"  class="checkbox"/></td>
+                        <td>w</td>
+                        <td>{{item.value.username != undefined ? item.value.username : item.value}}</td>
+                        <td>{{item.type}}</td>
+                        <td><a class="btn" ng-click="delete(item)">Remove</a></td>
+                    </tr>
+                </table>
+                <div class="v-spacer"></div>
+                <div class="text-left">
+                    <span ng-if="cursor.hasPrev" ng-click="goToPage(cursor.prev)" class="btn">Prev</span>
+                    <span ng-if="cursor.hasNext" ng-click="goToPage(cursor.next)" class="btn">Next</span>
+                </div>
+                <div class="v-spacer"></div>
+            </div>
+        </div>
+    </umb-tab-view>
+</umb-panel>

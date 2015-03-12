@@ -1,0 +1,73 @@
+﻿<div class="umb-pane" ng-controller="uCommentator.DetailComment.controller">
+    <a href="{{comment.url}}" class="comment-detail-link">{{comment.thread.title}}</a><br />
+    <span class="commenter-detail-name">{{comment.author.name}}</span>&nbsp;•&nbsp;<span class="comment-detail-date">
+            {{comment.createdAt | date:"medium"}}</span>
+    <div class="comment-detail-message">
+        {{comment.raw_message}}
+    </div>
+    <div class="in-reply">
+        <div ng-repeat="comment in context | orderBy:'createdAt':true">
+            <div class="comment-in-reply-text" ng-init="marginator = {'margin-left': $index * 20 }" ng-style="marginator">
+                In reply to:
+            </div>
+            <div class="comment-reply-to" ng-style="marginator">
+                {{comment.author.name}}&nbsp;•&nbsp;<span class="child-date">{{comment.createdAt | date:"medium"}}</span><br />
+                {{comment.raw_message}}                
+            </div>
+        </div>
+    </div>
+    <div ng-if="comment.isApproved == true && !comment.isDeleted && !comment.isSpam">
+        <div class="comment-control-detail">
+            <a ng-init="showReply = true" ng-click="showEdit = showReply == true ? true : showEdit; showReply = !showReply;">
+                {{!showReply ? 'Close' : 'Reply'}}</a>&nbsp;
+            <a ng-init="showEdit = true" ng-click="showReply = showEdit == true ? true : showReply; showEdit = !showEdit;">
+                {{!showEdit ? 'Close' : 'Edit'}}</a>
+        </div>
+        <div class="comment-reply" ng-class="{'open': !showReply}">
+            <form>
+                <label>Message:</label>
+                <textarea class="form-control" style="width: 95%;" name="message" rows="6" ng-model="comment.reply_message"></textarea>
+                <div class="clearfix"></div>
+                <br />
+                <button class="btn pull-right" ng-click="save(comment)">Send</button>
+            </form>
+        </div>
+        <div class="comment-reply" ng-class="{'open': !showEdit}">
+            <form>
+                <label>Message:</label>
+                <textarea class="form-control" style="width: 95%;" name="message" rows="6" ng-model="comment.edit_message"
+                    ng-init="comment.edit_message = comment.raw_message"></textarea>
+                <div class="clearfix"></div>
+                <br />
+                <button class="btn pull-right" ng-click="edit(comment)">Send</button>
+            </form>
+        </div>
+    </div>
+    <div class="comment-user-detail">
+        <div class="user-section">
+            <div class="comment-avatar">
+                <img src="{{comment.author.avatar.permalink}}" />
+            </div>
+            <div class="comment-header">
+                <span class="commenter-detail-name">{{comment.author.name}}</span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="commenter-email">{{comment.author.email}}</div>
+            <div class="commenter-ip-address"><i class="fa fa-globe"></i>&nbsp;{{comment.ipAddress}}</div>
+        </div>
+        <div class="user-control">
+            <a class="btn" ng-click="whitelist(comment)">Whitelist</a> <a class="btn" ng-click="blacklist(comment)">Blacklist</a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+    <div>
+        <div class="umb-pane btn-toolbar umb-btn-toolbar">
+            <div class="control-group umb-control-group">
+                <a href="" class="btn btn-default" ng-click="close()">
+                    <localize key="general_close">Close</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

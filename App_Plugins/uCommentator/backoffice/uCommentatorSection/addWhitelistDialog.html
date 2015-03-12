@@ -1,0 +1,28 @@
+﻿<div class="umb-pane" ng-controller="uCommentator.AddWhitelist.controller">
+    <div>
+        <h4>Add Whitelist</h4><br />
+        <label>Type</label>
+        <select ng-model="data.type" ng-init="data.type = 'email'" class="form-control">
+            <option value="email">Email</option>
+            <option value="user">Username</option>
+        </select>
+        <label>Value</label>
+        <input type="text" class="form-control" ng-model="data.value" ng-init="data.value = ''"/>
+        <label>Notes</label>
+        <textarea ng-model="data.notes" rows="5" class="form-control" style="width:80%;">
+        </textarea>
+    </div>
+
+    <div>
+        <div class="umb-pane btn-toolbar umb-btn-toolbar">
+            <div class="control-group umb-control-group">
+                <a href="" class="btn btn-link" ng-click="cancel()">
+                    <localize key="general_cancel">Cancel</localize>
+                </a>
+                <a href="" class="btn btn-primary" ng-click="addWhitelist(data)">
+                    <localize key="general_ok">OK</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<umb-panel>
+    <umb-header tabs="content.tabs">
+        <div class="umb-headline-editor-wrapper span12 ng-scope">
+            <h1 class="ng-binding">Approved Comment</h1>
+        </div>
+    </umb-header>
+    <umb-tab-view>
+        <div class="umb-pane">  
+            <div ng-controller="uCommentator.Approved.controller" class="comment-container">
+                <div class="comment-top-menu span12">
+                    <form ng-submit="searchPost(search, sortComment)">
+                        <div class="pull-left">
+                            <input type="checkbox" ng-model="checkAll" ng-init="checkAll = false" ng-click="check(checkAll)"/>
+                            <a class="btn" ng-click="approveChecked(comment)">Approve</a> 
+                            <a class="btn" ng-click="spamChecked(comment)">Spam</a> 
+                            <a class="btn" ng-click="removeChecked(comment)">Delete</a>
+                            &nbsp;&nbsp;
+                        </div>
+                        <div class="pull-left" style="position:relative;">
+                            <input type="text" class="form-control" ng-model="search" ng-init="search = ''" placeholder="Search..."/>
+                            <span class="search-clear close clickable" ng-init="showX = search.length > 0 ? 'block' : 'none'"
+                                ng-style="{'display':search.length > 0 ? 'block' : 'none'}"
+                                ng-click="clearSearch(search, sortComment)">×</span>
+                            <input type="submit" id="submit" value="Submit" style="visibility:hidden;position:absolute;left:-9999px;"/>
+                        </div>
+                        <div class="pull-right">
+                            <span style="line-height:30px;">Sort</span>
+                            <select ng-model="sortComment" ng-init="sortComment = 'desc'" style="width:100px;" name="sort"
+                                ng-change="searchPost(search, sortComment)">
+                                    <option value="desc">Newest</option>
+                                    <option value="asc">Oldest</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div ng-repeat="comment in comment">
+                    <div class="comment-item span12">
+                        <span>
+                            <input type="checkbox" ng-model="comment.isChecked"  class="checkbox"/>
+                        </span>
+                        <div ng-click="commentDetail(comment)">
+                            <a href="{{comment.url}}" class="comment-link">{{comment.thread.title}}</a>
+                            <div class="comment-avatar">
+                                <img src="{{comment.author.avatar.permalink}}" />
+                            </div>
+                            <div class="comment-header">
+                                <span class="commenter-name">{{comment.author.name}}</span>&nbsp;•&nbsp;<span class="comment-date">
+                                    {{comment.createdAt | date:"medium"}}</span>
+                                <div class="pull-right">
+                                    <span class="commenter-email">{{comment.author.email}}</span>
+                                    &nbsp;•&nbsp;
+                                    <span class="commenter-ip-address">{{comment.ipAddress}}</span>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="comment-content">
+                                {{comment.raw_message}}
+                            </div>
+                        </div>                     
+                        <div class="comment-control">
+                            <a ng-click="comment.isApproved && !comment.isDeleted ? '' : showComment(comment)" 
+                                class="{{comment.isApproved && !comment.isDeleted ? 'disabled' : ''}}">
+                                <i class="fa fa-check"></i> Approve</a> &nbsp;&nbsp;
+                            <a ng-click="comment.isSpam ? '' : markSpam(comment)" class="spam {{comment.isSpam ? 'disabled' : ''}}">
+                                <i class="fa fa-ban"></i> Spam</a> &nbsp;&nbsp;
+                            <a ng-click="comment.isDeleted ? '' : deleteComment(comment)" class="delete {{comment.isDeleted ? 'disabled' : ''}}">
+                                <i class="fa fa-trash"></i> Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="v-spacer"></div>
+                <div class="text-left">
+                    <span ng-if="cursor.hasPrev" ng-click="goToPage(cursor.prev)" class="btn">Prev</span>
+                    <span ng-if="cursor.hasNext" ng-click="goToPage(cursor.next)" class="btn">Next</span>
+                </div>
+                <div class="v-spacer"></div>
+            </div>
+        </div>
+    </umb-tab-view>
+</umb-panel>

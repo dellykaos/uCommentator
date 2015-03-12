@@ -1,0 +1,36 @@
+﻿<div class="umb-pane" ng-controller="uCommentator.Blacklist.controller">
+    <p>
+        Adding this person to the blacklist will block him or her from commenting on this site in the future. 
+        <strong>Note</strong>: Adding an IP address to the blacklist may also unintentionally block others who may share this IP address.
+        <div ng-if="comment.author.username != undefined" class="control-group">
+            <label for="wl-username" class="checkbox">
+                <input type="checkbox" ng-model="wl.username" id="wl-username" />
+                Username: {{comment.author.username}}
+            </label>
+        </div>
+        <div class="control-group">
+            <label for="wl-email" class="checkbox">
+                <input type="checkbox" ng-model="wl.email" id="wl-email" ng-bind="wl.email" ng-init="wl.email = false"/>
+                Email: {{comment.author.email}}
+            </label>
+        </div>
+        <div class="control-group">
+            <label class="checkbox">
+                <input type="checkbox" ng-model="wl.ipAddress" id="wl-ip" />
+                IP Address: {{comment.ipAddress}}
+            </label>
+        </div>
+    </p>
+    <div>
+        <div class="umb-pane btn-toolbar umb-btn-toolbar">
+            <div class="control-group umb-control-group">
+                <a href="" class="btn btn-link" ng-click="close()">
+                    <localize key="general_close">Close</localize>
+                </a>&nbsp;
+                <a href="" class="btn btn-primary" ng-click="approve(wl)">
+                    <localize key="general_ok">OK</localize>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
