@@ -12,9 +12,9 @@
                     <form ng-submit="searchPost(search, sortComment)">
                         <div class="pull-left">
                             <input type="checkbox" ng-model="checkAll" ng-init="checkAll = false" ng-click="check(checkAll)"/>
-                            <a class="btn" ng-click="approveChecked(comment)">Approve</a> 
-                            <a class="btn" ng-click="spamChecked(comment)">Spam</a> 
-                            <a class="btn" ng-click="removeChecked(comment)">Delete</a>
+                            <a class="btn btn-primary" ng-click="approveChecked(comment)">Approve</a> 
+                            <a class="btn btn-warning" ng-click="spamChecked(comment)">Spam</a> 
+                            <a class="btn btn-danger" ng-click="removeChecked(comment)">Delete</a>
                             &nbsp;&nbsp;
                         </div>
                         <div class="pull-left" style="position:relative;">

@@ -1,10 +1,14 @@
 ﻿(function () {        
     angular.module("umbraco")
     .controller("uCommentator.ConfirmationDialog.controller",
-        function ($scope, dialogService, $compile) {
+        function ($scope, dialogService, $compile, uCommentatorResource) {
             var settings = uCommentatorResource.getSettings();
 
-            $scope.message = $scope.dialogData;
+            if (angular.isObject($scope.dialogData)) {
+                $scope.content = $scope.dialogData;
+            } else {
+                $scope.message = $scope.dialogData;
+            }
 
             $scope.ok = function () {
                 dialogService.close($scope.$parent.dialogOptions, { resp: "ok" });
@@ -517,12 +521,14 @@
             $scope.approveChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to approve all checked comment?</h4>";
+                var btn = "Approve";
+                var btnClass = "btn-primary";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: {message: message, btn: btn, btnClass: btnClass}
                 });
 
                 function done(resp) {
@@ -563,12 +569,14 @@
 
             $scope.spamChecked = function (data) {
                 var message = "<h4>Are you sure want to spam all checked comment?</h4>";
+                var btn = "Mark as Spam";
+                var btnClass = "btn-warning";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -609,12 +617,14 @@
             $scope.removeChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to remove all checked comment?</h4>";
+                var btn = "Delete";
+                var btnClass = "btn-danger";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -847,12 +857,14 @@
             $scope.approveChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to approve all checked comment?</h4>";
+                var btn = "Approve";
+                var btnClass = "btn-primary";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -892,18 +904,20 @@
             }
 
             $scope.spamChecked = function (data) {
-                var param = [];
                 var message = "<h4>Are you sure want to spam all checked comment?</h4>";
+                var btn = "Mark as Spam";
+                var btnClass = "btn-warning";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
                     if (resp.resp == "ok") {
+                        var param = [];
                         angular.forEach(data, function (value, key) {
                             if (value.isChecked) {
                                 param.push(value.id);
@@ -939,12 +953,14 @@
             $scope.removeChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to remove all checked comment?</h4>";
+                var btn = "Delete";
+                var btnClass = "btn-danger";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1177,12 +1193,14 @@
             $scope.approveChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to approve all checked comment?</h4>";
+                var btn = "Approve";
+                var btnClass = "btn-primary";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1222,18 +1240,20 @@
             }
 
             $scope.spamChecked = function (data) {
-                var param = [];
                 var message = "<h4>Are you sure want to spam all checked comment?</h4>";
+                var btn = "Mark as Spam";
+                var btnClass = "btn-warning";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
                     if (resp.resp == "ok") {
+                        var param = [];
                         angular.forEach(data, function (value, key) {
                             if (value.isChecked) {
                                 param.push(value.id);
@@ -1269,12 +1289,14 @@
             $scope.removeChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to remove all checked comment?</h4>";
+                var btn = "Delete";
+                var btnClass = "btn-danger";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1509,12 +1531,14 @@
             $scope.approveChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to approve all checked comment?</h4>";
+                var btn = "Approve";
+                var btnClass = "btn-primary";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1549,21 +1573,25 @@
                         }
                     }
                 }
+
+
             }
 
             $scope.spamChecked = function (data) {
-                var param = [];
                 var message = "<h4>Are you sure want to spam all checked comment?</h4>";
+                var btn = "Mark as Spam";
+                var btnClass = "btn-warning";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
                     if (resp.resp == "ok") {
+                        var param = [];
                         angular.forEach(data, function (value, key) {
                             if (value.isChecked) {
                                 param.push(value.id);
@@ -1599,12 +1627,14 @@
             $scope.removeChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to remove all checked comment?</h4>";
+                var btn = "Delete";
+                var btnClass = "btn-danger";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1834,12 +1864,14 @@
             $scope.approveChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to approve all checked comment?</h4>";
+                var btn = "Approve";
+                var btnClass = "btn-primary";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -1879,18 +1911,20 @@
             }
 
             $scope.spamChecked = function (data) {
-                var param = [];
                 var message = "<h4>Are you sure want to spam all checked comment?</h4>";
+                var btn = "Mark as Spam";
+                var btnClass = "btn-warning";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
                     if (resp.resp == "ok") {
+                        var param = [];
                         angular.forEach(data, function (value, key) {
                             if (value.isChecked) {
                                 param.push(value.id);
@@ -1926,12 +1960,14 @@
             $scope.removeChecked = function (data) {
                 var param = [];
                 var message = "<h4>Are you sure want to remove all checked comment?</h4>";
+                var btn = "Delete";
+                var btnClass = "btn-danger";
 
                 var confirmationDialog = dialogService.open({
                     template: '/App_Plugins/uCommentator/backoffice/uCommentatorSection/confirmationDialog.html',
                     show: true,
                     closeCallback: done,
-                    dialogData: message
+                    dialogData: { message: message, btn: btn, btnClass: btnClass }
                 });
 
                 function done(resp) {
@@ -2496,7 +2532,7 @@
             }
         })
     .controller("uCommentator.AddWhitelist.controller",
-        function ($scope, dialogService, $http, $route, umbRequestHelper, notificationsService) {
+        function ($scope, dialogService, $http, $route, umbRequestHelper, notificationsService, uCommentatorResource) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.addWhitelist = function (data) {

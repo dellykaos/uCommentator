@@ -13,7 +13,7 @@
                         <div class="pull-left">
                             <input type="checkbox" ng-model="checkAll" ng-init="checkAll = false" ng-click="check(checkAll)"/>
                             <a class="btn" ng-click="add()">Add</a> 
-                            <a class="btn" ng-click="removeChecked(blacklist)">Remove</a> 
+                            <a class="btn btn-danger" ng-click="removeChecked(blacklist)">Remove</a> 
                             &nbsp;&nbsp;
                         </div>
                         <div class="pull-left" style="position:relative;">
@@ -40,7 +40,7 @@
                         <td>{{item.value.username != undefined ? item.value.username : item.value}}</td>
                         <td>{{item.type}}</td>
                         <td>{{item.notes}}</td>
-                        <td><a class="btn" ng-click="delete(item)">Remove</a></td>
+                        <td><a class="btn btn-danger" ng-click="delete(item)">Remove</a></td>
                     </tr>
                 </table>
                 <div class="v-spacer"></div>

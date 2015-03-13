@@ -11,14 +11,14 @@
 }
 
 .comment-container {
-    width: 85%;
+    width: 100%;
 }
 
 .comment-item:hover {
     background-color: rgba(60,255,0,0.3);
     border: 2px thick rgba(60,255,0,1);
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0;
 }
 
 .comment-avatar img {
