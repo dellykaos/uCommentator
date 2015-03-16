@@ -42,7 +42,7 @@
                         <div ng-click="commentDetail(comment)">
                             <a href="{{comment.url}}" class="comment-link">{{comment.thread.title}}</a>
                             <div class="comment-avatar">
-                                <img src="{{comment.author.avatar.permalink}}" />
+                                <img ng-src="{{comment.author.avatar.permalink}}"/>
                             </div>
                             <div class="comment-header">
                                 <span class="commenter-name">{{comment.author.name}}</span>&nbsp;•&nbsp;<span class="comment-date">

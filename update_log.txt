@@ -1,0 +1,4 @@
+Fixed Issue 1.0.2 uCommentator:
+- confirmation dialog for remove blacklist error
+- cancel dialog button redirect to umbraco backoffice home
+- Fix avatar not found issue
