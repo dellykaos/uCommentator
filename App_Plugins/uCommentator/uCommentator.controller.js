@@ -347,7 +347,7 @@
             };
         })
     .controller("uCommentator.DisqusComment.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.comment = {};
@@ -695,9 +695,11 @@
                     notificationsService.error("Error", "Failed to retrieve comment, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "dashboard"], forceReload: false });
         })
     .controller("uCommentator.Approved.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.comment = {};
@@ -1031,9 +1033,11 @@
                     notificationsService.error("Error", "Failed to retrieve comment, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "approved"], forceReload: false });
         })
     .controller("uCommentator.Pending.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.comment = {};
@@ -1367,9 +1371,11 @@
                     notificationsService.error("Error", "Failed to retrieve comment, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "pending"], forceReload: false });
         })
     .controller("uCommentator.Spam.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.cursor = {};
@@ -1705,9 +1711,11 @@
                     notificationsService.error("Error", "Failed to retrieve comment, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "spam"], forceReload: false });
         })
     .controller("uCommentator.Deleted.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.comment = {};
@@ -2038,9 +2046,11 @@
                     notificationsService.error("Error", "Failed to retrieve comment, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "deleted"], forceReload: false });
         })
     .controller("uCommentator.BlacklistUser.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.blacklist = {};
@@ -2258,6 +2268,8 @@
                     notificationsService.error("Error", "Failed to retrieve blacklist, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "blacklist"], forceReload: false });
         })
     .controller("uCommentator.AddBlacklist.controller",
         function ($scope, dialogService, $http, $route, umbRequestHelper, notificationsService, uCommentatorResource) {
@@ -2312,7 +2324,7 @@
             };
         })
     .controller("uCommentator.WhitelistUser.controller",
-        function ($scope, $http, $route, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource) {
+        function ($scope, $http, $route, $routeParams, notificationsService, dialogService, $rootScope, $compile, $log, $q, $templateCache, umbRequestHelper, $timeout, uCommentatorResource, navigationService) {
             var settings = uCommentatorResource.getSettings();
 
             $scope.whitelist = {};
@@ -2530,6 +2542,8 @@
                     notificationsService.error("Error", "Failed to retrieve whitelist, please try again later / refresh page");
                 });
             }
+
+            navigationService.syncTree({ tree: 'uCommentatorSection', path: ["-1", "whitelist"], forceReload: false });
         })
     .controller("uCommentator.AddWhitelist.controller",
         function ($scope, dialogService, $http, $route, umbRequestHelper, notificationsService, uCommentatorResource) {
