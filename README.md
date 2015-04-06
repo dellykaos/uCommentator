@@ -12,4 +12,4 @@ How to use:
 
 - Enjoy your disqus management
 
-- To render disqus comment, just add @Umbraco.RenderMacro("U Commentator") to your template, it will automatically called shortname from the settings
+- To render disqus comment, just add @Umbraco.RenderMacro("UCommentator") to your template, it will automatically called shortname from the settings
