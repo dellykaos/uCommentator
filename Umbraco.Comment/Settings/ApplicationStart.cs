@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Umbraco.Core;
-using Umbraco.Comment.Settings;
-using Umbraco.Web;
-using Umbraco.Comment.Controllers;
-using System.Web.Mvc;
 using Umbraco.Web.UI.JavaScript;
-using System.Web.Routing;
 using umbraco.NodeFactory;
 using Umbraco.Core.Models;
 
@@ -20,13 +13,17 @@ namespace Umbraco.Comment.Settings
 
         protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, ApplicationContext applicationContext)
         {
-            var ct = applicationContext.Services.ContentTypeService.GetAllContentTypes()
-                .Where(x => x.Alias == "UcommentatorSettings").FirstOrDefault();
+            var ct = applicationContext.Services.ContentTypeService
+                .GetAllContentTypes().FirstOrDefault(x => x.Alias == "UcommentatorSettings");
 
             if (ct == null)
             {
                 var textstring = applicationContext.Services.DataTypeService.GetDataTypeDefinitionByPropertyEditorAlias("umbraco.Textbox")
                     .FirstOrDefault(x => x.Name.ToLower() == "textstring");
+                var trueFalse =
+                    applicationContext.Services.DataTypeService.GetDataTypeDefinitionByPropertyEditorAlias(
+                        "Umbraco.TrueFalse")
+                        .FirstOrDefault(x => x.Name.ToLower() == "true/false");
 
                 ContentType uCommentatorType = new ContentType(-1);
                 uCommentatorType.Name = "uCommentatorSettings";
@@ -83,18 +80,71 @@ namespace Umbraco.Comment.Settings
                     Mandatory = true
                 };
 
+                var enableSSO = new PropertyType(trueFalse)
+                {
+                    Alias = "enableSSO",
+                    Name = "Enable SSO?",
+                    Mandatory = false
+                };
+
+                var ssoName = new PropertyType(textstring)
+                {
+                    Alias = "ssoName",
+                    Name = "SSO Name",
+                    Description = "Fill this if you enable SSO.",
+                    Mandatory = false
+                };
+
+                var ssoButton = new PropertyType(textstring)
+                {
+                    Alias = "ssoButton",
+                    Name = "SSO Button URL",
+                    Description = "Fill this if you enable SSO.",
+                    Mandatory = false
+                };
+
+                var ssoIcon = new PropertyType(textstring)
+                {
+                    Alias = "ssoIcon",
+                    Name = "SSO Icon URL",
+                    Description = "Fill this if you enable SSO.",
+                    Mandatory = false
+                };
+
+                var ssoLogin = new PropertyType(textstring)
+                {
+                    Alias = "ssoLogin",
+                    Name = "SSO Login URL",
+                    Description = "Fill this if you enable SSO.",
+                    Mandatory = false
+                };
+
+                var ssoLogout = new PropertyType(textstring)
+                {
+                    Alias = "ssoLogout",
+                    Name = "SSO Logout URL",
+                    Description = "Fill this if you enable SSO.",
+                    Mandatory = false
+                };
+
                 uCommentatorType.AddPropertyType(api_key, "Settings");
                 uCommentatorType.AddPropertyType(api_secret, "Settings");
                 uCommentatorType.AddPropertyType(access_token, "Settings");
                 uCommentatorType.AddPropertyType(shortname, "Settings");
                 uCommentatorType.AddPropertyType(category, "Settings");
                 uCommentatorType.AddPropertyType(limit, "Settings");
+                uCommentatorType.AddPropertyType(enableSSO, "Settings");
+                uCommentatorType.AddPropertyType(ssoName, "Settings");
+                uCommentatorType.AddPropertyType(ssoButton, "Settings");
+                uCommentatorType.AddPropertyType(ssoIcon, "Settings");
+                uCommentatorType.AddPropertyType(ssoLogin, "Settings");
+                uCommentatorType.AddPropertyType(ssoLogout, "Settings");
                 
                 ApplicationContext.Current.Services.ContentTypeService.Save(uCommentatorType);
             }
 
             var root = new Node(-1);
-            var settings = root.ChildrenAsList.Where(x => x.NodeTypeAlias == "UcommentatorSettings").FirstOrDefault();
+            var settings = root.ChildrenAsList.FirstOrDefault(x => x.NodeTypeAlias == "UcommentatorSettings");
 
             if (settings == null)
             {
@@ -107,6 +157,12 @@ namespace Umbraco.Comment.Settings
                 doc.SetValue("shortname", "your shortname");
                 doc.SetValue("category", "your category");
                 doc.SetValue("itemPerPage", 10);
+                doc.SetValue("enableSSO", 0);
+                doc.SetValue("ssoName", "Example SSO");
+                doc.SetValue("ssoButton", "http://example.com/images/samplenews.gif");
+                doc.SetValue("ssoIcon", "http://example.com/favicon.png");
+                doc.SetValue("ssoLogout", "http://example.com/login/");
+                doc.SetValue("ssoLogout", "http://example.com/logout/");
 
                 applicationContext.Services.ContentService.SaveAndPublishWithStatus(doc);
             }
@@ -127,7 +183,7 @@ namespace Umbraco.Comment.Settings
         private void ServerVariablesParser_Parsing(object sender, Dictionary<string, object> e)
         {
             var root = new Node(-1);
-            var settings = root.ChildrenAsList.Where(x => x.NodeTypeAlias == "UcommentatorSettings").FirstOrDefault();
+            var settings = root.ChildrenAsList.FirstOrDefault(x => x.NodeTypeAlias == "UcommentatorSettings");
 
             e.Remove("uCommentator");
 
@@ -143,15 +199,17 @@ namespace Umbraco.Comment.Settings
                 var shortname = settings.GetProperty("shortname").Value;
                 var category = settings.GetProperty("category").Value;
                 var limit = settings.GetProperty("itemPerPage").Value;
+                var enableSSO = settings.GetProperty("enableSSO").Value;
 
                 e.Add("uCommentator", new Dictionary<string, object>
                 {
-                    { "uCommentatorApiKey", api_key.ToString()},
-                    { "uCommentatorApiSecret", api_secret.ToString()},
-                    { "uCommentatorAccessToken", access_token.ToString()},
-                    { "uCommentatorShortname", shortname.ToString()},
-                    { "uCommentatorCategory", category.ToString()},
-                    { "uCommentatorLimit", limit.ToString()}
+                    { "uCommentatorApiKey", api_key},
+                    { "uCommentatorApiSecret", api_secret},
+                    { "uCommentatorAccessToken", access_token},
+                    { "uCommentatorShortname", shortname},
+                    { "uCommentatorCategory", category},
+                    { "uCommentatorLimit", limit},
+                    { "uCommentatorEnableSSO", enableSSO},
                 });
 
             }
