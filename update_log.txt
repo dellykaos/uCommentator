@@ -2,3 +2,10 @@ Fixed Issue 1.0.2 uCommentator:
 - confirmation dialog for remove blacklist error
 - cancel dialog button redirect to umbraco backoffice home
 - Fix avatar not found issue
+V.1.0.3 Fixed Issue:
+- Adding active menu
+V.1.0.4 Fixed Issue:
+- Adding SSO compatibility
+V.1.0.5 Fixed Issue:
+- Error on confirmation dialog
+- Change angular structure
