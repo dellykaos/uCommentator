@@ -21,8 +21,6 @@ namespace Umbraco.Comment.Helper
             {
                 IContent doc = ApplicationContext.Current.Services.ContentService.GetById(settings.Id);
 
-                ApplicationContext.Current.Services.ContentService.SaveAndPublishWithStatus(doc);
-
                 var result = new DisqusSetting()
                 {
                     ApiKey = settings.GetProperty("api_key").Value,
